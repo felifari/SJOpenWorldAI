@@ -23,15 +23,13 @@ public class IAWalk : MonoBehaviour
         Dying,
         Patrol,
     }
-
     public IaState currentState;
-    // Start is called before the first frame update
     void Start()
     {
-        patrolposition = new Vector3(transform.position.x + Random.Range(-patrolDistance, patrolDistance), transform.position.y, transform.position.z + Random.Range(-patrolDistance, patrolDistance));
+        patrolposition = new Vector3(transform.position.x + Random.Range(-patrolDistance, patrolDistance),
+            transform.position.y,
+            transform.position.z + Random.Range(-patrolDistance, patrolDistance));
     }
-
-    // Update is called once per frame
     void Update()
     {
         switch (currentState)
@@ -55,10 +53,8 @@ public class IAWalk : MonoBehaviour
                 Patrol();
                 break;
         }
-
         anim.SetFloat("Velocity", agent.velocity.magnitude);
     }
-
     void Patrol()
     {
         agent.isStopped = false;
@@ -73,16 +69,16 @@ public class IAWalk : MonoBehaviour
         if (stoppedTime> timetowait)
         {
             stoppedTime = 0;
-            patrolposition = new Vector3(transform.position.x + Random.Range(-patrolDistance, patrolDistance), transform.position.y, transform.position.z + Random.Range(-patrolDistance, patrolDistance));
+            patrolposition = new Vector3(transform.position.x + Random.Range(-patrolDistance, patrolDistance),
+                transform.position.y,
+                transform.position.z + Random.Range(-patrolDistance, patrolDistance));
         }
         //ditancia do jogador for menor q distancetotrigger
         if (Vector3.Distance(transform.position, target.transform.position) < distancetotrigger)
         {
             currentState = IaState.Berserk;
         }
-
     }
-
     void Stopped()
     {
         agent.isStopped = true;
@@ -103,14 +99,12 @@ public class IAWalk : MonoBehaviour
         {
             currentState = IaState.Attack;
         }
-
         //se a distancia dele for  maior q o trigger ele patrulha de novo 
         if (Vector3.Distance(transform.position, target.transform.position) > distancetotrigger)
         {
             currentState = IaState.Patrol;
         }
     }
-
     void Attack()
     {
         agent.isStopped = true;

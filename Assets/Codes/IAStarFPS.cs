@@ -17,23 +17,12 @@ public class IAStarFPS : MonoBehaviour
         dead,
         damage,
     }
-
     public States state;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         StateMachine();
         anim.SetFloat("Velocidade", agent.velocity.magnitude);
-
     }
-
     void StateMachine()
     {
         switch (state)
@@ -55,7 +44,6 @@ public class IAStarFPS : MonoBehaviour
                 break;
         }
     }
-
     void ReturnPursuit()
     {
         state = States.pursuit;
@@ -76,14 +64,12 @@ public class IAStarFPS : MonoBehaviour
             render.material.DisableKeyword("_EMISSION");
             yield return new WaitForSeconds(0.05f);
         }
-
     }
 
     public void Dead()
     {
         state = States.dead;
     }
-
 
     void PursuitState()
     {
@@ -96,7 +82,6 @@ public class IAStarFPS : MonoBehaviour
             state = States.atacking;
         }
     }
-
     void AttackState()
     {
         agent.isStopped = true;
@@ -107,14 +92,12 @@ public class IAStarFPS : MonoBehaviour
             state = States.pursuit;
         }
     }
-
     void StoppedState()
     {
         agent.isStopped = true;
         anim.SetBool("Attack", false);
         anim.SetBool("Damage", false);
     }
-
     void DeadState()
     {
         agent.isStopped = true;
@@ -122,7 +105,6 @@ public class IAStarFPS : MonoBehaviour
         anim.SetBool("Dead", true);
         anim.SetBool("Damage", false);
     }
-
     void DamageState()
     {
         agent.isStopped = true;
